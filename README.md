@@ -2,7 +2,7 @@
 
 
 
-## About API
+## About Project
 
 
 - Please migrate table to your database: php artisan migrate
