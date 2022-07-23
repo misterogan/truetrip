@@ -1,0 +1,264 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Trutrip API Documentations",
+        "description": "",
+        "contact": {
+            "email": "djersey18@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/destination/get": {
+            "get": {
+                "tags": [
+                    "Destination"
+                ],
+                "operationId": "get user destination",
+                "responses": {
+                    "200": {
+                        "description": "destination created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/destination/create": {
+            "post": {
+                "tags": [
+                    "Destination"
+                ],
+                "operationId": "user destination",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "title destination",
+                                        "type": "string"
+                                    },
+                                    "origin": {
+                                        "description": "The origin of the destination",
+                                        "type": "string"
+                                    },
+                                    "destination": {
+                                        "description": "The journey of the destination",
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "description": "type of the destination",
+                                        "type": "string"
+                                    },
+                                    "start": {
+                                        "description": "start date of the destination",
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "end": {
+                                        "description": "end date of the destination",
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "description": {
+                                        "description": "description of the destination",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "destination created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "user register",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the user",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "The email of the user",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The password of the user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User register success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/api/auth/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "user login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User login success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/api/auth/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "get user",
+                "responses": {
+                    "200": {
+                        "description": "Token success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/user/logout": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "logout user",
+                "responses": {
+                    "200": {
+                        "description": "Token success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Truetrip API",
+            "description": "API Endpoints of Truetrip"
+        }
+    ]
+}
