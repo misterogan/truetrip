@@ -163,7 +163,7 @@ class DestinationController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/destination/cancel",
+     *     path="/api/destination/delete",
      *     operationId="user cancel destination",
      *     tags={"Destination"},
      *     @OA\RequestBody(
@@ -223,7 +223,9 @@ class DestinationController extends Controller
      * )
      * )
      */
+    public function delete(Request $request){
 
+    }
 
 
 }

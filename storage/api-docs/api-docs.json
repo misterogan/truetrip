@@ -107,6 +107,74 @@
                 ]
             }
         },
+        "/api/destination/delete": {
+            "post": {
+                "tags": [
+                    "Destination"
+                ],
+                "operationId": "user cancel destination",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "title destination",
+                                        "type": "string"
+                                    },
+                                    "origin": {
+                                        "description": "The origin of the destination",
+                                        "type": "string"
+                                    },
+                                    "destination": {
+                                        "description": "The journey of the destination",
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "description": "type of the destination",
+                                        "type": "string"
+                                    },
+                                    "start": {
+                                        "description": "start date of the destination",
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "end": {
+                                        "description": "end date of the destination",
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "description": {
+                                        "description": "description of the destination",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "destination created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/auth/user/register": {
             "post": {
                 "tags": [
