@@ -163,8 +163,8 @@ class DestinationController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/destination/create",
-     *     operationId="user destination",
+     *     path="/api/destination/cancel",
+     *     operationId="user cancel destination",
      *     tags={"Destination"},
      *     @OA\RequestBody(
      *         description="Input data format",
