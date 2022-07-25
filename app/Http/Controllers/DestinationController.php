@@ -34,13 +34,29 @@ class DestinationController extends Controller
 
     public function index(Request $request){
         $user = Auth::user();
-        $key = "__destination".$user->id;
 
-        if(Cache::get($key)){
-            $destinations = Cache::get($key);
-        }else{
-            $destinations = UserDestination::where('user_id',$user->id)->get();
-            Cache::put($key, $destinations, 1800);
+//
+//        if(Cache::get($key)){
+//            $destinations = Cache::get($key);
+//        }else{
+//            $destinations = UserDestination::where('user_id',$user->id)->get();
+//            foreach ($destinations as $item){
+//
+//            }
+//            Cache::put($key, $destinations, 1800);
+//        }
+        $destinations = UserDestination::where('user_id',$user->id)->get();
+        $data = array();
+        foreach ($destinations as $item){
+            $key = "__destination".$item->id;
+            if(Cache::get($key)){
+                $data[] = Cache::get($key);
+            }else{
+                $destinations = UserDestination::where('id',$item->id)->first();
+                Cache::put($key, $destinations->toArray(), 1800);
+                $data[] = $destinations;
+            }
+
         }
 
         $my_destination = DestinationResources::collection($destinations);
@@ -140,7 +156,7 @@ class DestinationController extends Controller
             return $this->errorResponse('date already taken on another destination',202);
         }
 
-        $key = "__destination".$user->id;
+
         $user_destination = UserDestination::create([
             'user_id'       =>$user->id,
             'title'         =>$request->title,
@@ -152,11 +168,11 @@ class DestinationController extends Controller
             'description'   =>$request->description,
             'created_at'    =>Carbon::now(),
         ]);
+        $key = "__destination".$user_destination->id;
+//        Cache::forget($key);
+//        $get_destination = UserDestination::where('user_id',$user->id)->get();
 
-        Cache::forget($key);
-        $get_destination = UserDestination::where('user_id',$user->id)->get();
-
-        Cache::put($key, $get_destination, 1800);
+        Cache::put($key, $user_destination, 1800);
 
         return $this->successResponse($user_destination,'destination created',200);
     }
@@ -197,19 +213,13 @@ class DestinationController extends Controller
     public function delete(Request $request){
 
         $user = Auth::user();
-        $key = "__destination".$user->id;
-        Cache::forget($key);
-
-
         $destination = UserDestination::where('id',$request->destination_id)->first();
         if(!$destination){
             return $this->errorResponse('destination not found',203);
-
         }
+        $key = "__destination".$destination->id;
+        Cache::forget($key);
         $destination->delete();
-
-        $get_destination = UserDestination::where('user_id',$user->id)->get();
-        Cache::put($key, $get_destination, 1800);
         return $this->successResponse($request->id);
 
     }
