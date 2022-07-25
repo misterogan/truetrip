@@ -173,39 +173,9 @@ class DestinationController extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
-     *                     property="title",
-     *                     description="title destination",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="origin",
-     *                     description="The origin of the destination",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="destination",
-     *                     description="The journey of the destination",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="type",
-     *                     description="type of the destination",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="start",
-     *                     description="start date of the destination",
-     *                     type="datetime"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="end",
-     *                     description="end date of the destination",
-     *                     type="datetime"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="description",
-     *                     description="description of the destination",
-     *                     type="string"
+     *                     property="destination_id",
+     *                     description="id destination",
+     *                     type="integer",
      *                 ),
      *             )
      *         )
@@ -223,7 +193,24 @@ class DestinationController extends Controller
      * )
      * )
      */
+
     public function delete(Request $request){
+
+        $user = Auth::user();
+        $key = "__destination".$user->id;
+        Cache::forget($key);
+
+
+        $destination = UserDestination::where('id',$request->destination_id)->first();
+        if(!$destination){
+            return $this->errorResponse('destination not found',203);
+
+        }
+        $destination->delete();
+
+        $get_destination = UserDestination::where('user_id',$user->id)->get();
+        Cache::put($key, $get_destination, 1800);
+        return $this->successResponse($request->id);
 
     }
 

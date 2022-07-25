@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('/destination/get', 'DestinationController@index');
     Route::post('/destination/create', 'DestinationController@create');
+    Route::post('/destination/delete', 'DestinationController@delete');
 
 });
 

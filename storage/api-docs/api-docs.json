@@ -119,35 +119,9 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "title": {
-                                        "description": "title destination",
-                                        "type": "string"
-                                    },
-                                    "origin": {
-                                        "description": "The origin of the destination",
-                                        "type": "string"
-                                    },
-                                    "destination": {
-                                        "description": "The journey of the destination",
-                                        "type": "string"
-                                    },
-                                    "type": {
-                                        "description": "type of the destination",
-                                        "type": "string"
-                                    },
-                                    "start": {
-                                        "description": "start date of the destination",
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "end": {
-                                        "description": "end date of the destination",
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "description": {
-                                        "description": "description of the destination",
-                                        "type": "string"
+                                    "destination_id": {
+                                        "description": "id destination",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
