@@ -102,7 +102,7 @@ class DestinationController extends Controller
      *                 @OA\Property(
      *                     property="end",
      *                     description="end date of the destination",
-     *                     type="datetime"
+     *                     type="datetime",
      *                 ),
      *                 @OA\Property(
      *                     property="description",
@@ -129,8 +129,8 @@ class DestinationController extends Controller
 
         $validation = Validator::make($request->all(), [
             'title'        => 'required',
-            'origin'       => 'required',
-            'destination'  => 'required',
+            'origin'       => 'required|date_format:Y-m-d H:i:s',
+            'destination'  => 'required|date_format:Y-m-d H:i:s',
 
         ]);
 
